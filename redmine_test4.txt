@@ -1,0 +1,44 @@
+http://stackoverflow.com/questions/29296891/getting-started-with-byebug-in-rails
+
+1 test4 we will write a plugin showing 
+  how to debug the program. eg: how to know the current variable.
+
+
+first, quick do what test3 plugin has done:
+1 set RAILS_ENV=production
+2 bundle exec ruby script/rails generate redmine_plugin test4
+3 bundle exec ruby script/rails generate redmine_plugin_controller test4 test4ctl1 index
+4 add route:config/route.rb:
+get 'test4ctl1', :to => 'test4ctl1#index'
+5 Extending menus?Edit init.rb
+menu :top_menu, :test4topmenuname, { :controller => 'test4ctl1', :action => 'index' }, :caption => :'test4ctl1'
+6 international
+add config/locales/en.yml
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  test4ctl1: 'test4 project debug'
+
+ 
+ 
+7 edit Gemfile:
+ add: gem 'byebug'
+8 run : bundle install. to install byebug.
+9 
+in test4ctl1_controller.rb: 
+def index function, add:
+	#open debug here
+	byebug
+
+10 restart using:
+  ~$rails server -e production
+   click test4 plugon menu. you will drop into a debug shell.
+
+IMPORTANT:   1. add gem 'byebug' to Gemfile and run bundle install command;
+             2. add 'byebug' code in the test4ctl1_controller.rb:index method
+             2. click test4 plugon menu(on top menu) 
+ 
+
+  something  else:
+  
+  http://www.bogotobogo.com/RubyOnRails/RubyOnRails_ActionController_Parameters_Hash_Array_json_Routing_Parameters.php
