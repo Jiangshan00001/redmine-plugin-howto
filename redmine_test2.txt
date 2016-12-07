@@ -1,0 +1,28 @@
+1 redmine plugin internationalization
+The translation files must be stored in config/locales, eg. plugins/polls/config/locales/.
+
+
+1 quick review: create test2.
+1 set RAILS_ENV=production
+2 bundle exec ruby script/rails generate redmine_plugin test2
+3 bundle exec ruby script/rails generate redmine_plugin_controller test2 test2ctl1 index
+4 add route:config/route.rb:
+get 'test2ctl1', :to => 'test2ctl1#index'
+5 Extending menus?Edit plugins/test2/init.rb
+menu :top_menu, :test2topmenuname, { :controller => 'test2ctl1', :action => 'index' }, :caption => 'test2ctl1'
+
+
+
+
+
+change plugins/test2/init.rb
+from 
+menu :top_menu, :test2topmenuname, { :controller => 'test2ctl1', :action => 'index' }, :caption => 'test2ctl1'
+to:
+menu :top_menu, :test2topmenuname, { :controller => 'test2ctl1', :action => 'index' }, :caption => :'test2ctl1'
+
+add config/locales/en.yml
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  test2ctl1: 'test2 ctl title'

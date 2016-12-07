@@ -1,0 +1,4 @@
+# Chinese strings go here for Rails i18n
+zh:
+  # my_label: "My label"
+  test2ctl1: 'test2 ctl title'

@@ -1,0 +1,17 @@
+<h2>Test3ctl1Controller#index</h2>
+<!--  -->
+
+<table>
+<tr>
+ <th> identifier </th>
+ <th> name </th>
+</tr>
+
+<% @projects.each do |project| %>
+ <tr>
+ <td><%= project.identifier.to_s %></td>
+ <td><%= project.name %></td>
+ </tr>
+<% end %>
+
+</table>

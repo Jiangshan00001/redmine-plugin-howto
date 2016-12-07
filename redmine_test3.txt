@@ -1,0 +1,44 @@
+3 redmine plugin. how to access projects db
+
+
+first, quick do what test2 plugin has done:
+1 set RAILS_ENV=production
+2 bundle exec ruby script/rails generate redmine_plugin test3
+3 bundle exec ruby script/rails generate redmine_plugin_controller test3 test3ctl1 index
+4 add route:config/route.rb:
+get 'test3ctl1', :to => 'test3ctl1#index'
+5 Extending menus?Edit init.rb
+menu :top_menu, :test3topmenuname, { :controller => 'test3ctl1', :action => 'index' }, :caption => :'test3ctl1'
+6 international
+add config/locales/en.yml
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  test3ctl1: 'test3 project issue disp'
+
+ 
+ 
+7 access project:
+in test3ctl1_controller.rb: def index function, add:
+    #access Project. get active projects
+	tmpVar = Project.active.visible.order('lft').all
+	# the @ means a member variable. that could transmitted to view
+    @projects = tmpVar
+
+8 in app/views/test3ctl1/index.html.erb add:
+<table>
+<tr>
+ <th> identifier </th>
+ <th> name </th>
+</tr>
+
+<% @projects.each do |project| %>
+ <tr>
+ <td><%= project.identifier.to_s %></td>
+ <td><%= project.name %></td>
+ </tr>
+<% end %>
+
+</table>
+
+8 restart
