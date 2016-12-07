@@ -9,7 +9,9 @@ test2: how to do internationalization.
 
 test3: how to access project db.
 
+test4: how to debug using byebug.
 
+test5: 
 
 if you has such plugins for beginners, just tell me and i will put it here.
 
