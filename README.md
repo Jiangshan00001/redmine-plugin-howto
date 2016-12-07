@@ -2,6 +2,7 @@
 this will tell us how to write a redmine plugin. for people how do not know rails &amp; ruby.
 
 current test plugin:
+
 test1: how to create plugin, add menu, add route.
 
 test2: how to do internationalization.
