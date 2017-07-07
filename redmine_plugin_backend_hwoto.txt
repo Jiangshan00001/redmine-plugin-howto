@@ -8,3 +8,9 @@ entries_by_day.keys.sort.reverse.each do |day|
 entries_by_day[day].sum(&:hours).to_f
 end
 
+
+issue :
+condition = [@user.id]
+condition += @user.group_ids if setting.show_assigned_to_group?
+Issue.visible.open.where(assigned_to_id: condition)
+Issue.visible.open.where(assigned_to_id: condition).count
