@@ -1,12 +1,28 @@
 how to get timeentry:
-entries = TimeEntry.joins(:activity, :project, {:issue => [:tracker, :status]})
-  .where("#{TimeEntry.table_name}.user_id = ? AND #{TimeEntry.table_name}.spent_on BETWEEN ? AND ?", @user.id, Date.today - sql_period, Date.today)
-  .order("#{TimeEntry.table_name}.spent_on DESC, #{Project.table_name}.name ASC, #{Tracker.table_name}.position ASC, #{Issue.table_name}.id ASC")
-entries_by_day = entries.group_by(&:spent_on)
+  entries = TimeEntry.joins(:activity, :project, {:issue => [:tracker, :status]})
+      .where("#{TimeEntry.table_name}.user_id = ? AND #{TimeEntry.table_name}.spent_on BETWEEN ? AND ?", @user.id, Date.today - sql_period, Date.today)
+      .order("#{TimeEntry.table_name}.spent_on DESC, #{Project.table_name}.name ASC, #{Tracker.table_name}.position ASC, #{Issue.table_name}.id ASC")
+  entries_by_day = entries.group_by(&:spent_on)
 
-entries_by_day.keys.sort.reverse.each do |day|
-entries_by_day[day].sum(&:hours).to_f
-end
+  entries_by_day.keys.sort.reverse.each do |day|
+    entries_by_day[day].sum(&:hours).to_f
+  end
+
+how to get time entry:
+  tm = TimeEntry.find_by_id(id)
+  issue_id = tm.issue.id
+  tm.hours.to_f
+
+create new time entry:
+  new_entry = TimeEntry.new(:project => issue.project, :issue => issue, :user => @this_user, :spent_on => @this_date)
+  new_entry.safe_attributes = tm_vals
+  new_entry.save
+
+how to select time entry:
+    TimeEntry.
+        where(["spent_on>=:t1 and spent_on<=:t2 and hours>0",{:t1 => @first_date, :t2 => @last_date}]).
+        all.
+        each do |time_entry|
 
 
 issue :
