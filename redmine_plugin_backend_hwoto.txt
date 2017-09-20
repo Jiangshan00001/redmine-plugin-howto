@@ -32,5 +32,6 @@ Issue.visible.open.where(assigned_to_id: condition)
 Issue.visible.open.where(assigned_to_id: condition).count
 
 
-how to add javascript:
+how to add javascript  stylesheet:
   <%= javascript_include_tag :redmine_people, :plugin => 'redmine_people'  %>
+    <%= stylesheet_link_tag :redmine_people, :plugin => 'redmine_people' %>
